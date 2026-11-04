@@ -8,9 +8,17 @@ function Projects({pd, setSub})
 
     const [tx, setTx]= useState('')
 
-    const handleDel=(index)=>{
-        const res= pd.filter((item)=> item.id !== index)
-        setSub(res)
+    const handleDel=async (index)=>{
+        try{
+            const resp= await fetch(`http://localhost:8000/project/${index}`, {
+                method: 'DELETE'
+            })
+            if (!resp.ok) throw new Error('Failed to delete')
+            setSub((res)=>(res.filter((item)=> item.id !== index)))
+        }
+        catch(err){
+            console.error(err)
+        }
     }
 
     const handleEdit=(idx)=>{
@@ -27,13 +35,26 @@ function Projects({pd, setSub})
         setTemp({...temp, [e.target.name]: e.target.value   })
     }
     
-    const handleUpd=()=>{
-        setSub((prev)=>
+    const handleUpd=async ()=>{
+        const title= temp.ttl
+        const task= temp.tasks.split('\n')
+        try{
+            const resp= await fetch(`http://localhost:8000/project/${ed}`, {
+                method: 'PATCH',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify({title, task})
+            })
+            if (!resp.ok) throw new Error('Failed to Edit')
+            setSub((prev)=>
             prev.map((p)=>
-            (p.id === ed ?  {...p, title:temp.ttl , task: temp.tasks.split('\n')} : p)
+            (p.id === ed ?  {...p, title , task} : p)
+                )
             )
-        )
-        setEd(null)
+            setEd(null)     
+        }
+        catch(err){
+            console.error(err)
+        }
     }
 
     const res= pd.filter(p=> p.title.toLowerCase().includes(tx.toLowerCase()))
