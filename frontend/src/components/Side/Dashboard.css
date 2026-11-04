@@ -1,0 +1,54 @@
+h1,p{
+    font-family: sans-serif;
+}
+
+.main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 70px;
+    padding: 10px;
+    width: 1050px;
+}
+
+.id1{
+    background-color: blanchedalmond;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    height: 80px;
+    width: 130px;
+    border-radius: 8px;
+}
+
+.btn{
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 30px;
+    gap: 50px;
+}
+
+.b1{
+    height: 35px;
+    background-color: wheat;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.body{
+    padding: 20px;
+}
+
+[popover]{
+    padding: 20px;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-width: 300px;
+}
+
+[popover]::backdrop{
+    background-color:rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
