@@ -59,11 +59,23 @@ function Projects({pd, setSub})
 
     const res= pd.filter(p=> p.title.toLowerCase().includes(tx.toLowerCase()))
 
-    const handleDelTask= (pid, index)=>{
-        const res= pd.map((p)=>{
-            return p.id== pid ? {...p, task:p.task.filter((_,j)=> j!== index )}: p
-        })
-        setSub(res)
+    const handleDelTask=async (pid, index)=>{
+        const item= pd.find((f)=>f.id === pid)
+        const task= item.task.filter((_,j)=> j!== index )
+        try{
+            const resp= await fetch(`http://localhost:8000/project/${pid}`, {
+                method:'PATCH',
+                headers:{'Content-Type':'application/json'},
+                body:JSON.stringify({task})
+
+            })
+            if (!resp.ok) throw new Error ("Failed to delete")
+            
+            setSub((prev)=>prev.map((p)=>(p.id== pid ? {...p, task}: p)))
+        }
+        catch(err){
+            console.error(err)
+        }
     }
 
     return(

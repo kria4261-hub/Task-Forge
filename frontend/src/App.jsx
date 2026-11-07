@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import './App.css';
 import { BrowserRouter, Route, Routes, Link } from 'react-router-dom'
 import Dashboard from './components/Side/Dashboard'
 import Tasks from './components/Side/Tasks'

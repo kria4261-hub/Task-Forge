@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import './Dashboard.css';
 function Dashboard({ btn, setBtn, sub, setSub})
 {
     const [tsk ,setTsk]= useState(false)
